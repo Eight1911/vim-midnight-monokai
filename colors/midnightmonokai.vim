@@ -9,15 +9,15 @@ if !has('gui_running') && &t_Co < 256
   finish
 endif
 
-if !exists('g:sublimemonokai_gui_italic')
-  let g:sublimemonokai_gui_italic = 1
+if !exists('g:midnightmonokai_gui_italic')
+  let g:midnightmonokai_gui_italic = 1
 endif
 
-if !exists('g:sublimemonokai_term_italic')
-  let g:sublimemonokai_term_italic = 0
+if !exists('g:midnightmonokai_term_italic')
+  let g:midnightmonokai_term_italic = 0
 endif
 
-let g:sublimemonokai_termcolors = 256 " does not support 16 color term right now.
+let g:midnightmonokai_termcolors = 256 " does not support 16 color term right now.
 
 set background=dark
 hi clear
@@ -26,7 +26,7 @@ if exists('syntax_on')
   syntax reset
 endif
 
-let colors_name = 'sublimemonokai'
+let colors_name = 'midnightmonokai'
 
 fun! s:h(group, style)
   let s:ctermformat = 'NONE'
@@ -35,17 +35,17 @@ fun! s:h(group, style)
 	let s:ctermformat = a:style.format
 	let s:guiformat = a:style.format
   endif
-  if g:sublimemonokai_term_italic == 0
+  if g:midnightmonokai_term_italic == 0
 	let s:ctermformat = substitute(s:ctermformat, ',italic', '', '')
 	let s:ctermformat = substitute(s:ctermformat, 'italic,', '', '')
 	let s:ctermformat = substitute(s:ctermformat, 'italic', '', '')
   endif
-  if g:sublimemonokai_gui_italic == 0
+  if g:midnightmonokai_gui_italic == 0
 	let s:guiformat = substitute(s:guiformat, ',italic', '', '')
 	let s:guiformat = substitute(s:guiformat, 'italic,', '', '')
 	let s:guiformat = substitute(s:guiformat, 'italic', '', '')
   endif
-  if g:sublimemonokai_termcolors == 16
+  if g:midnightmonokai_termcolors == 16
 	let l:ctermfg = (has_key(a:style, 'fg') ? a:style.fg.cterm16 : 'NONE')
 	let l:ctermbg = (has_key(a:style, 'bg') ? a:style.bg.cterm16 : 'NONE')
   else
@@ -63,7 +63,7 @@ fun! s:h(group, style)
 endfunction
 
 " Expose the more complicated style setting via a global function
-fun! g:SublimeMonokaiHighlight(group, style)
+fun! g:MidnightMonokaiHighlight(group, style)
   return s:h(a:group, a:style)
 endfun
 
@@ -73,15 +73,15 @@ endfun
 " namespaced global variable
 fun! s:create_palette_color(color_name, color_data)
   exec 'let s:' . a:color_name . ' = a:color_data'
-  exec 'let g:sublimemonokai_' . a:color_name . ' = a:color_data'
+  exec 'let g:midnightmonokai_' . a:color_name . ' = a:color_data'
 endf
 
 call s:create_palette_color('brightwhite', { 'gui': '#FFFFFF', 'cterm': '231' })
 call s:create_palette_color('white',       { 'gui': '#E8E8E3', 'cterm': '252' })
-call s:create_palette_color('black',       { 'gui': '#272822', 'cterm': '234' })
+call s:create_palette_color('black',       { 'gui': '#222222', 'cterm': '234' })
 call s:create_palette_color('lightblack',  { 'gui': '#2D2E27', 'cterm': '235' })
 call s:create_palette_color('lightblack2', { 'gui': '#383a3e', 'cterm': '236' })
-call s:create_palette_color('darkblack',   { 'gui': '#211F1C', 'cterm': '233' })
+call s:create_palette_color('darkblack',   { 'gui': '#000000', 'cterm': '0'   })
 call s:create_palette_color('grey',        { 'gui': '#8F908A', 'cterm': '243' })
 call s:create_palette_color('lightgrey',   { 'gui': '#575b61', 'cterm': '237' })
 call s:create_palette_color('darkgrey',    { 'gui': '#64645e', 'cterm': '239' })
@@ -97,11 +97,10 @@ call s:create_palette_color('purple',      { 'gui': '#ae81ff', 'cterm': '141' })
 call s:create_palette_color('red',         { 'gui': '#e73c50', 'cterm': '196' })
 call s:create_palette_color('darkred',     { 'gui': '#5f0000', 'cterm': '52'  })
 
-call s:create_palette_color('addfg',       { 'gui': '#d7ffaf', 'cterm': '193' })
-call s:create_palette_color('addbg',       { 'gui': '#5f875f', 'cterm': '65'  })
-call s:create_palette_color('delbg',       { 'gui': '#f75f5f', 'cterm': '167' })
-call s:create_palette_color('changefg',    { 'gui': '#d7d7ff', 'cterm': '189' })
-call s:create_palette_color('changebg',    { 'gui': '#5f5f87', 'cterm': '60'  })
+call s:create_palette_color('addbg',       { 'gui': '#003f00', 'cterm': '22'  })
+call s:create_palette_color('delbg',       { 'gui': '#3f0000', 'cterm': '52'  })
+call s:create_palette_color('changebg',    { 'gui': '#1e2326', 'cterm': '60'  })
+call s:create_palette_color('difftextbg',  { 'gui': '#385561', 'cterm': '17'  })
 
 " Expose the foreground colors of the Sublime palette as a bunch of
 " highlighting groups. This lets us (and users!) get tab completion for the `hi
@@ -130,46 +129,46 @@ call s:h('SublimeDarkRed',     { 'fg': s:darkred      })
 
 " Default highlight groups (see ':help highlight-default' or http://vimdoc.sourceforge.net/htmldoc/syntax.html#highlight-groups)
 
-call s:h('ColorColumn',  {                      'bg': s:lightblack2                            })
+call s:h('ColorColumn',  {                      'bg': s:black                                  })
 hi! link Conceal SublimeLightGrey
-call s:h('CursorColumn', {                      'bg': s:lightblack2                            })
-call s:h('CursorLine',   {                      'bg': s:lightblack2                            })
-call s:h('CursorLineNr', { 'fg': s:orange,      'bg': s:lightblack                             })
-call s:h('DiffAdd',      { 'fg': s:addfg,       'bg': s:addbg                                  })
-call s:h('DiffChange',   { 'fg': s:changefg,    'bg': s:changebg                               })
-call s:h('DiffDelete',   { 'fg': s:black,       'bg': s:delbg                                  })
-call s:h('DiffText',     { 'fg': s:black,       'bg': s:aqua                                   })
+call s:h('CursorColumn', {                      'bg': s:black                                  })
+call s:h('CursorLine',   {                      'bg': s:black                                  })
+call s:h('CursorLineNr', { 'fg': s:white                                                       })
+call s:h('LineNr',       { 'fg': s:warmgrey                                                    })
+call s:h('DiffAdd',      {                      'bg': s:addbg                                  })
+call s:h('DiffChange',   {                      'bg': s:changebg                               })
+call s:h('DiffDelete',   { 'fg': s:delbg,       'bg': s:delbg                                  })
+call s:h('DiffText',     {                      'bg': s:difftextbg                             })
 hi! link Directory SublimeAqua
 call s:h('ErrorMsg',     { 'fg': s:black,       'bg': s:red,      'format': 'standout'         })
 hi! link FoldColumn SublimeDarkBlack
 call s:h('Folded',       { 'fg': s:warmgrey,    'bg': s:darkblack                              })
 call s:h('IncSearch',    {                                        'format': 'reverse,underline'})
-call s:h('LineNr',       { 'fg': s:grey,        'bg': s:lightblack                             })
 call s:h('MatchParen',   {                                        'format': 'underline'        })
 hi! link ModeMsg SublimeYellow
 hi! link MoreMsg SublimeYellow
 hi! link NonText SublimeLightGrey
-call s:h('Normal',       { 'fg': s:white,       'bg': s:black                                  })
-call s:h('Pmenu',        { 'fg': s:lightblack,  'bg': s:white                                  })
+call s:h('Normal',       {                                                                     })
+call s:h('Pmenu',        { 'fg': s:white,  'bg': s:black                                  })
 call s:h('PmenuSbar',    {                                                                     })
 call s:h('PmenuSel',     { 'fg': s:aqua,        'bg': s:black,    'format': 'reverse,bold'     })
 call s:h('PmenuThumb',   { 'fg': s:lightblack,  'bg': s:grey                                   })
 hi! link Question SublimeYellow
 call s:h('Search',       {                                        'format': 'reverse,underline'})
 call s:h('SignColumn',   { 'fg': s:lightblack,  'bg': s:grey                                   })
-hi! link SpecialKey SublimeLightBlack2
+hi! link SpecialKey SublimeWarmGrey
 call s:h('SpellBad',     {                      'bg': s:darkred                                })
 call s:h('SpellCap',     {                      'bg': s:darkyellow                             })
 call s:h('SpellLocal',   {                      'bg': s:darkyellow                             })
 call s:h('SpellRare',    {                      'bg': s:darkyellow                             })
-call s:h('StatusLine',   { 'fg': s:warmgrey,    'bg': s:black,    'format': 'reverse'          })
-call s:h('StatusLineNC', { 'fg': s:darkgrey,    'bg': s:warmgrey, 'format': 'reverse'          })
-call s:h('TabLine',      { 'fg': s:white,       'bg': s:darkgrey                               })
-call s:h('TabLineFill',  { 'fg': s:grey,        'bg': s:darkgrey                               })
-call s:h('TabLineSel',   { 'fg': s:black,       'bg': s:white                                  })
+call s:h('StatusLine',   {                      'bg': s:black                                  })
+call s:h('StatusLineNC', {                      'bg': s:darkblack                              })
+call s:h('TabLine',      { 'fg': s:white,       'bg': s:black                                  })
+call s:h('TabLineFill',  { 'fg': s:grey,        'bg': s:darkblack                              })
+call s:h('TabLineSel',   {                      'bg': s:darkblack                              })
 hi! link Title SublimeYellow
-call s:h('VertSplit',    { 'fg': s:darkgrey,    'bg': s:darkblack                              })
-call s:h('Visual',       {                      'bg': s:lightgrey                              })
+call s:h('VertSplit',    { 'fg': s:black                                                       })
+call s:h('Visual',       {                      'bg': s:lightblack2                            })
 hi! link WarningMsg SublimeRed
 
 " Generic Syntax Highlighting (see reference: 'NAMING CONVENTIONS' at http://vimdoc.sourceforge.net/htmldoc/syntax.html#group-name)
