@@ -181,12 +181,12 @@ hi! link Number       SublimePurple
 hi! link Boolean      SublimePurple
 hi! link Float        SublimePurple
 hi! link Identifier   SublimeWhite
-hi! link Function     SublimeWhite
+hi! link Function     SublimeGreen
 hi! link Type         SublimeAqua
 hi! link StorageClass SublimePink
 hi! link Structure    SublimePink
 hi! link Typedef      SublimeAqua
-hi! link Statement    SublimeWhite
+hi! link Statement    SublimeAqua
 hi! link Conditional  SublimePink
 hi! link Repeat       SublimePink
 hi! link Label        SublimePink
@@ -196,7 +196,7 @@ hi! link Exception    SublimePink
 call s:h('CommentURL',    { 'fg': s:grey, 'format': 'italic' })
 
 hi! link PreProc        SublimeGreen
-hi! link Include        SublimeWhite
+hi! link Include        SublimePink
 hi! link Define         SublimePink
 hi! link Macro          SublimeGreen
 hi! link PreCondit      SublimeWhite
@@ -848,26 +848,18 @@ hi! link phpVarSelector     Identifier
 
 " Python
 
-" This configuration assumed python-mode
-hi! link pythonBuiltinFunc SublimeFunctionCall
-hi! link pythonConditional Conditional
-hi! link pythonException   Keyword
-hi! link pythonFunction    Tag
-hi! link pythonInclude     Keyword
-hi! link pythonLambdaExpr  SublimeType
-" XXX: def parens are, for some reason, included in this group.
-hi! link pythonParam       SublimeContextParam
-" XXX: pythonStatement covers a bit too much...unfortunately, this means that
-" some keywords, like `def`, can't be highlighted like in Sublime yet.
+" assumes jwohlwend/vim-sublime
 hi! link pythonStatement   Keyword
-" XXX: Other known deficiencies:
-"
-" * Python special regexp sequences aren't highlighted. :\
-" * Function cals aren't highlighted like they are in Sublime.
-" * Keyword args aren't highlighted at all like in Sublime.
-"
-" Most of the above really are just because I haven't found a syntax that
-" supports these distinctions yet.
+call s:h("pythonDefine",                { "fg": s:aqua,     "format": "italic" })
+call s:h("pythonClass",                 { "fg": s:green                        })
+call s:h("pythonFunctionParameters",    { "fg": s:orange,   "format": "italic" })
+call s:h("pythonClassParameters",       { "fg": s:green,    "format": "italic" })
+call s:h("pythonSelf",                  { "fg": s:orange,   "format": "italic" })
+call s:h("pythonExceptions",            { "fg": s:aqua,     "format": "italic" })
+call s:h("pythonDocstring",             { "fg": s:warmgrey                     })
+call s:h("pythonClassSpecial",          { "fg": s:aqua                         })
+call s:h("pythonFuncCall",              { "fg": s:aqua                         })
+call s:h("pythonBuiltin",               { "fg": s:aqua                         })
 
 " QuickScope plugin
 
