@@ -149,7 +149,7 @@ hi! link ModeMsg SublimeYellow
 hi! link MoreMsg SublimeYellow
 hi! link NonText SublimeLightGrey
 call s:h('Normal',       {                                                                     })
-call s:h('Pmenu',        { 'fg': s:white,  'bg': s:black                                  })
+call s:h('Pmenu',        { 'fg': s:white,  'bg': s:black                                       })
 call s:h('PmenuSbar',    {                                                                     })
 call s:h('PmenuSel',     { 'fg': s:aqua,        'bg': s:black,    'format': 'reverse,bold'     })
 call s:h('PmenuThumb',   { 'fg': s:lightblack,  'bg': s:grey                                   })
